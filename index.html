@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Certificate Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .form-header, .certificate-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-header h1, .certificate-header h1 {
+            margin: 0;
+            color: #333;
+        }
+        .form-header p, .certificate-header p {
+            margin: 0;
+            color: #666;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-footer button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-footer button:hover {
+            background-color: #45a049;
+        }
+        .certificate {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .certificate-content p {
+            margin: 10px 0;
+            color: #333;
+        }
+        .certificate-content span {
+            font-weight: bold;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-header">
+        <h1>Certificate of Registration of Marriage</h1>
+        <p>Government of Maharashtra</p>
+    </div>
+    <form id="marriageForm">
+        <div class="form-group">
+            <label for="husbandName">Husband Name</label>
+            <input type="text" id="husbandName" name="husbandName" required>
+        </div>
+        <div class="form-group">
+            <label for="wifeName">Wife Name</label>
+            <input type="text" id="wifeName" name="wifeName" required>
+        </div>
+        <div class="form-group">
+            <label for="husbandUID">Husband UID No.</label>
+            <input type="text" id="husbandUID" name="husbandUID" required>
+        </div>
+        <div class="form-group">
+            <label for="wifeUID">Wife UID No.</label>
+            <input type="text" id="wifeUID" name="wifeUID" required>
+        </div>
+        <div class="form-group">
+            <label for="husbandResidence">Husband Residence</label>
+            <input type="text" id="husbandResidence" name="husbandResidence" required>
+        </div>
+        <div class="form-group">
+            <label for="wifeResidence">Wife Residence</label>
+            <input type="text" id="wifeResidence" name="wifeResidence" required>
+        </div>
+        <div class="form-group">
+            <label for="marriageDate">Marriage Date</label>
+            <input type="date" id="marriageDate" name="marriageDate" required>
+        </div>
+        <div class="form-group">
+            <label for="marriagePlace">Marriage Place</label>
+            <input type="text" id="marriagePlace" name="marriagePlace" required>
+        </div>
+        <div class="form-group">
+            <label for="registerNumber">Register Number</label>
+            <input type="text" id="registerNumber" name="registerNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="taluka">Taluka</label>
+            <input type="text" id="taluka" name="taluka" required>
+        </div>
+        <div class="form-group">
+            <label for="district">District</label>
+            <input type="text" id="district" name="district" required>
+        </div>
+        <div class="form-footer">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div class="certificate" id="certificate">
+    <div class="certificate-header">
+        <h1>Certificate of Registration of Marriage</h1>
+        <p>Government of Maharashtra</p>
+    </div>
+    <div class="certificate-content" id="certificateContent">
+        <p>Husband Name: <span id="certHusbandName"></span></p>
+        <p>Wife Name: <span id="certWifeName"></span></p>
+        <p>Husband UID No.: <span id="certHusbandUID"></span></p>
+        <p>Wife UID No.: <span id="certWifeUID"></span></p>
+        <p>Husband Residence: <span id="certHusbandResidence"></span></p>
+        <p>Wife Residence: <span id="certWifeResidence"></span></p>
+        <p>Marriage Date: <span id="certMarriageDate"></span></p>
+        <p>Marriage Place: <span id="certMarriagePlace"></span></p>
+        <p>Register Number: <span id="certRegisterNumber"></span></p>
+        <p>Taluka: <span id="certTaluka"></span></p>
+        <p>District: <span id="certDistrict"></span></p>
+    </div>
+</div>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxrdSso4qnVMzY2xld1gdfE9jXYbTY9NfAg_awNWzXMvNTpRPYnBxH8L0-JDt0vxpBhrw/exec';
+    const form = document.getElementById('marriageForm');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: new URLSearchParams(data)
+        })
+        .then(response => response.json())
+        .then(responseData => {
+            if (responseData.status === 'Success') {
+                document.getElementById('certHusbandName').innerText = data.husbandName;
+                document.getElementById('certWifeName').innerText = data.wifeName;
+                document.getElementById('certHusbandUID').innerText = data.husbandUID;
+                document.getElementById('certWifeUID').innerText = data.wifeUID;
+                document.getElementById('certHusbandResidence').innerText = data.husbandResidence;
+                document.getElementById('certWifeResidence').innerText = data.wifeResidence;
+                document.getElementById('certMarriageDate').innerText = data.marriageDate;
+                document.getElementById('certMarriagePlace').innerText = data.marriagePlace;
+                document.getElementById('certRegisterNumber').innerText = data.registerNumber;
+                document.getElementById('certTaluka').innerText = data.taluka;
+                document.getElementById('certDistrict').innerText = data.district;
+
+                document.getElementById('certificate').style.display = 'block';
+                document.getElementById('marriageForm').reset(); // Optionally reset the form
+            } else {
+                alert('Error: ' + responseData.message);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+        });
+    });
+</script>
+
+
+</body>
+</html>
